@@ -1,59 +1,6 @@
 <template>
-  <pro-layout
-    :menus="menus"
-    :collapsed="collapsed"
-    :mediaQuery="query"
-    :isMobile="isMobile"
-    :handleMediaQuery="handleMediaQuery"
-    :handleCollapse="handleCollapse"
-    :i18nRender="i18nRender"
-    v-bind="settings"
-  >
-    <!-- 1.0.0+ 版本 pro-layout 提供 API，
-          我们推荐使用这种方式进行 LOGO 和 title 自定义
-    -->
-    <template v-slot:menuHeaderRender>
-      <div>
-        <logo-svg />
-        <h1>{{ title }}</h1>
-      </div>
-    </template>
-    <!-- 1.0.0+ 版本 pro-layout 提供 API,
-          增加 Header 左侧内容区自定义
-    -->
-    <template v-slot:headerContentRender>
-      <div style="display: flex; align-items: center">
-        <a-tooltip title="刷新页面">
-          <a-icon type="reload" style="font-size: 18px;cursor: pointer;" @click="() => { $message.info('只是一个DEMO') }" />
-        </a-tooltip>
-        <div style="margin-left: 20px">
-          <a-menu
-            mode="inline"
-            :style="{ width: '100%', borderRight: 0, display: 'flex' }"
-          >
-            <a-menu-item style="width: 200px" key="1" @click="jumpUrl('/dashboard/analysis')">html</a-menu-item>
-            <a-menu-item style="width: 200px" key="2" @click="jumpUrl('/dashboard/workplace')">vue</a-menu-item>
-            <a-menu-item style="width: 200px" key="3" @click="jumpUrl('/profile/basic')">html</a-menu-item>
-          </a-menu>
-
-        </div>
-
-      </div>
-      <div>
-      </div>
-    </template>
-
-    <setting-drawer v-if="isDev" :settings="settings" @change="handleSettingChange">
-      <div style="margin: 12px 0;">
-        This is SettingDrawer custom footer content.
-      </div>
-    </setting-drawer>
-    <template v-slot:rightContentRender>
-      <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
-    </template>
-    <multi-tab></multi-tab>
-    <router-view />
-  </pro-layout>
+  <router-view />
+<!--  </pro-layout>-->
 </template>
 
 <script>
@@ -61,7 +8,7 @@ import { SettingDrawer, updateTheme } from '@ant-design-vue/pro-layout'
 import { i18nRender } from '@/locales'
 import { mapState } from 'vuex'
 import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/store/mutation-types'
-import { asyncRouterMap } from '@/config/router.config.js'
+
 import defaultSettings from '@/config/defaultSettings'
 import RightContent from '@/components/GlobalHeader/RightContent'
 import MultiTab from '@/components/MultiTab'
@@ -85,7 +32,11 @@ export default {
       isDev: process.env.NODE_ENV === 'development' || process.env.VUE_APP_PREVIEW === 'true',
 
       // base
-      menus: [],
+      menus: [
+        {
+
+        }
+      ],
       // 侧栏收起状态
       collapsed: false,
       title: defaultSettings.title,
@@ -113,44 +64,30 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      // 动态主路由
-      mainMenu: state => state.permission.addRouters
-    })
+    // ...mapState({
+    //   // 动态主路由
+    //   mainMenu: state => state.permission.addRouters
+    // })
   },
   created () {
+    debugger
+
     // const routes = this.mainMenu.find(item => item.path === '/')
-    const routes = asyncRouterMap.find(item => item.path === '/')
-    this.menus = (routes && routes.children) || []
-    // 处理侧栏收起状态
-    this.$watch('collapsed', () => {
-      this.$store.commit(SIDEBAR_TYPE, this.collapsed)
-    })
-    this.$watch('isMobile', () => {
-      this.$store.commit(TOGGLE_MOBILE_TYPE, this.isMobile)
-    })
+    // this.menus = (routes && routes.children) || []
+    // // 处理侧栏收起状态
+    // this.$watch('collapsed', () => {
+    //   this.$store.commit(SIDEBAR_TYPE, this.collapsed)
+    // })
+    // this.$watch('isMobile', () => {
+    //   this.$store.commit(TOGGLE_MOBILE_TYPE, this.isMobile)
+    // })
   },
   mounted () {
-    const userAgent = navigator.userAgent
-    if (userAgent.indexOf('Edge') > -1) {
-      this.$nextTick(() => {
-        this.collapsed = !this.collapsed
-        setTimeout(() => {
-          this.collapsed = !this.collapsed
-        }, 16)
-      })
-    }
-
-    // first update color
-    // TIPS: THEME COLOR HANDLER!! PLEASE CHECK THAT!!
-    if (process.env.NODE_ENV !== 'production' || process.env.VUE_APP_PREVIEW === 'true') {
-      updateTheme(this.settings.primaryColor)
-    }
   },
   methods: {
     i18nRender,
     jumpUrl (path) {
-      this.$router.push(path)
+      this.$router.replace(path)
     },
     handleMediaQuery (val) {
       this.query = val

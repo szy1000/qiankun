@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import { UserLayout, BasicLayout, BlankLayout } from '@/layouts'
+import { UserLayout, BasicLayout,BasicLayout2, BlankLayout } from '@/layouts'
 import { bxAnaalyse } from '@/core/icons'
 
 const RouteView = {
@@ -8,6 +8,7 @@ const RouteView = {
 }
 
 export const asyncRouterMap = [
+
   {
     path: '/',
     name: 'index',
@@ -24,11 +25,12 @@ export const asyncRouterMap = [
         meta: { title: 'menu.dashboard', keepAlive: true, icon: bxAnaalyse, permission: ['dashboard'] },
         children: [
           {
-            path: '/dashboard/analysis/:pageNo([1-9]\\d*)?',
+            path: '/dashboard/analysis',
             name: 'Analysis',
             component: () => import('@/views/dashboard/Analysis'),
             meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: ['dashboard'] }
           },
+
           {
             path: '/dashboard/workplace',
             name: 'Workplace',
@@ -51,10 +53,16 @@ export const asyncRouterMap = [
         meta: { title: 'menu.form', icon: 'form', permission: ['form'] },
         children: [
           {
-            path: '/form/base-form',
-            name: 'BaseForm',
+            path: '/form/step-form',
+            name: 'BasicForm',
             component: () => import('@/views/form/basicForm'),
-            meta: { title: 'menu.form.basic-form', keepAlive: true, permission: ['form'] }
+            meta: { title: 'menu.form.step-form', keepAlive: true, permission: ['form'] }
+          },
+          {
+            path: '/form/step-form/*',
+            name: 'BasicForm2',
+            component: () => import('@/views/form/basicForm'),
+            meta: { title: 'menu.form.step-form', keepAlive: true, permission: ['form'] }
           },
           {
             path: '/form/step-form',
@@ -80,6 +88,7 @@ export const asyncRouterMap = [
         children: [
           {
             path: '/list/table-list/:pageNo([1-9]\\d*)?',
+            // path: '/list/table-list',
             name: 'TableListWrapper',
             hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
             component: () => import('@/views/list/TableList'),
@@ -133,10 +142,10 @@ export const asyncRouterMap = [
         name: 'profile',
         component: RouteView,
         redirect: '/profile/basic',
-        meta: { title: 'menu.profile', icon: 'profile', permission: ['profile'] },
+        meta: { title: 'menu.profile', icon: 'profile' },
         children: [
           {
-            path: '/profile/basic',
+            path: '/profile/basic/:pageNo',
             name: 'ProfileBasic',
             component: () => import('@/views/profile/basic'),
             meta: { title: 'menu.profile.basic', permission: ['profile'] }
@@ -332,12 +341,13 @@ export const asyncRouterMap = [
       }
       */
     ]
-  },
-  {
-    path: '*',
-    redirect: '/404',
-    hidden: true
   }
+
+  // {
+  //   path: '*',
+  //   redirect: '/404',
+  //   hidden: true
+  // }
 ]
 
 /**
@@ -345,6 +355,33 @@ export const asyncRouterMap = [
  * @type { *[] }
  */
 export const constantRouterMap = [
+  // {
+  //   path: '/',
+  //   name: 'wrapper',
+  //   meta: {},
+  //   component: BasicLayout2,
+  //   children: [
+  //     {
+  //       path: '/vue',
+  //       name: 'vue',
+  //       // component: RouteView,
+  //       meta: {},
+  //       component: () => import('@/views/vue/vue')
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/vue/*',
+  //   name: 'vue',
+  //   component: () => import('@/views/vue/vue')
+  //   // meta: { title: 'vue', keepAlive: false, permission: ['dashboard'] }
+  // },
+
+  // {
+  //   path: '/react',
+  //   name: 'react',
+  //   component: () => import('@/views/react/react')
+  // },
   {
     path: '/user',
     component: UserLayout,

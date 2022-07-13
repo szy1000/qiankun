@@ -1,13 +1,12 @@
 <template>
   <div>
-    xxx
+    vue3
     <div id="root-subapp-vue" class="app-view-box" />
-
   </div>
 </template>
 
 <script>
-  // import { registerMicroApps } from 'qiankun'
+  import { registerMicroApps, start } from 'qiankun'
 export default {
   name: 'BaseForm',
   data () {
@@ -15,20 +14,20 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$route)
-    // registerMicroApps([
-    //   {
-    //     name: 'subapp-vue',
-    //     entry: process.env.VUE_APP_SUB_APP_VUE,
-    //     container: '#root-subapp-vue',
-    //     activeRule: '/form/basic-form'
-    //   }
-    // ])
+    registerMicroApps([
+      {
+        name: 'vue',
+        entry: process.env.VUE_APP_SUB_APP_VUE,
+        container: '#root-subapp-vue',
+        activeRule: '/vue'
+      }
+    ])
 
-    // if (!window.qiankunStarted) {
-    //   window.qiankunStarted = true
-    //   start()
-    // }
+    if (!window.qiankunStarted) {
+      window.qiankunStarted = true
+      start()
+    }
+    // start()
   },
   methods: {
     // handler

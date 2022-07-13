@@ -225,6 +225,8 @@ export default {
     }
   },
   created () {
+    console.log(this.$route)
+    debugger
     getRoleList({ t: new Date() })
   },
   computed: {
