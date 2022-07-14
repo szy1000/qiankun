@@ -33,7 +33,7 @@
           >
             <a-menu-item style="width: 200px" key="1" @click="jumpUrl('/dashboard/analysis')">html</a-menu-item>
             <a-menu-item style="width: 200px" key="2" @click="jumpUrl('/dashboard/workplace')">vue</a-menu-item>
-            <a-menu-item style="width: 200px" key="3" @click="jumpUrl('/profile/basic')">html</a-menu-item>
+            <a-menu-item style="width: 200px" key="3" @click="jumpUrl('/profile/basic')">react</a-menu-item>
           </a-menu>
 
         </div>
@@ -117,6 +117,21 @@ export default {
       // 动态主路由
       mainMenu: state => state.permission.addRouters
     })
+  },
+  watch: {
+    '$route': {
+      handler: function (to, from) {
+        if (to.path.indexOf('/dashboard/analysis')) {
+          console.log('res==>', this.menus)
+          delete this.menus[this.menus.length]
+          console.log('res==>', this.menus)
+          console.log(to.path)
+          console.log(from)
+        }
+      },
+      immediate: true
+      // deep: true
+    }
   },
   created () {
     // const routes = this.mainMenu.find(item => item.path === '/')
