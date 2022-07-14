@@ -31,9 +31,9 @@
             mode="inline"
             :style="{ width: '100%', borderRight: 0, display: 'flex' }"
           >
-            <a-menu-item style="width: 200px" key="1" @click="jumpUrl('/dashboard/analysis')">html</a-menu-item>
-            <a-menu-item style="width: 200px" key="2" @click="jumpUrl('/dashboard/workplace')">vue</a-menu-item>
-            <a-menu-item style="width: 200px" key="3" @click="jumpUrl('/profile/basic')">react</a-menu-item>
+            <a-menu-item style="width: 200px" key="1" @click="jumpUrl('/dashboard/analysis')">运营管理</a-menu-item>
+            <a-menu-item style="width: 200px" key="2" @click="jumpUrl('/dashboard/workplace')">系统管理</a-menu-item>
+            <a-menu-item style="width: 200px" key="3" @click="jumpUrl('/profile/basic')">业务应用</a-menu-item>
           </a-menu>
 
         </div>
