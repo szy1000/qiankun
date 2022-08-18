@@ -4,6 +4,11 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "serve:prd": "vue-cli-service serve --mode ",
+    "react:start": "cd subapp/react15 && npm start",
+    "html:start": "cd subapp/purehtml && npm start",
+    "vue:start": "cd subapp/vue && npm start",
+    "vite:start": "cd subapp/vite && npm start",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",

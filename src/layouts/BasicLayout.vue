@@ -24,30 +24,28 @@
     <template v-slot:headerContentRender>
       <div style="display: flex; align-items: center">
         <a-tooltip title="刷新页面">
-          <a-icon type="reload" style="font-size: 18px;cursor: pointer;" @click="() => { $message.info('只是一个DEMO') }" />
+          <a-icon
+            type="reload"
+            style="font-size: 18px; cursor: pointer"
+            @click="
+              () => {
+                $message.info('只是一个DEMO')
+              }
+            "
+          />
         </a-tooltip>
         <div style="margin-left: 20px">
-          <a-menu
-            mode="inline"
-            :style="{ width: '100%', borderRight: 0, display: 'flex' }"
-          >
+          <a-menu mode="inline" :style="{ width: '100%', borderRight: 0, display: 'flex' }">
             <a-menu-item style="width: 200px" key="1" @click="jumpUrl('/dashboard/analysis')">运营管理</a-menu-item>
             <a-menu-item style="width: 200px" key="2" @click="jumpUrl('/dashboard/workplace')">系统管理</a-menu-item>
             <a-menu-item style="width: 200px" key="3" @click="jumpUrl('/profile/basic')">业务应用</a-menu-item>
+            <a-menu-item style="width: 200px" key="4" @click="jumpUrl('/profile/advanced')">vite应用</a-menu-item>
           </a-menu>
-
         </div>
-
       </div>
-      <div>
-      </div>
+      <div></div>
     </template>
 
-    <setting-drawer v-if="isDev" :settings="settings" @change="handleSettingChange">
-      <div style="margin: 12px 0;">
-        This is SettingDrawer custom footer content.
-      </div>
-    </setting-drawer>
     <template v-slot:rightContentRender>
       <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
     </template>
@@ -75,9 +73,9 @@ export default {
     RightContent,
     GlobalFooter,
     LogoSvg,
-    MultiTab
+    MultiTab,
   },
-  data () {
+  data() {
     return {
       // preview.pro.antdv.com only use.
       isProPreviewSite: process.env.VUE_APP_PREVIEW === 'true' && process.env.NODE_ENV !== 'development',
@@ -103,23 +101,23 @@ export default {
         colorWeak: defaultSettings.colorWeak,
 
         hideHintAlert: false,
-        hideCopyButton: false
+        hideCopyButton: false,
       },
       // 媒体查询
       query: {},
 
       // 是否手机模式
-      isMobile: false
+      isMobile: false,
     }
   },
   computed: {
     ...mapState({
       // 动态主路由
-      mainMenu: state => state.permission.addRouters
-    })
+      mainMenu: (state) => state.permission.addRouters,
+    }),
   },
   watch: {
-    '$route': {
+    $route: {
       handler: function (to, from) {
         if (to.path.indexOf('/dashboard/analysis')) {
           console.log('res==>', this.menus)
@@ -129,13 +127,13 @@ export default {
           console.log(from)
         }
       },
-      immediate: true
+      immediate: true,
       // deep: true
-    }
+    },
   },
-  created () {
+  created() {
     // const routes = this.mainMenu.find(item => item.path === '/')
-    const routes = asyncRouterMap.find(item => item.path === '/')
+    const routes = asyncRouterMap.find((item) => item.path === '/')
     this.menus = (routes && routes.children) || []
     // 处理侧栏收起状态
     this.$watch('collapsed', () => {
@@ -145,7 +143,7 @@ export default {
       this.$store.commit(TOGGLE_MOBILE_TYPE, this.isMobile)
     })
   },
-  mounted () {
+  mounted() {
     const userAgent = navigator.userAgent
     if (userAgent.indexOf('Edge') > -1) {
       this.$nextTick(() => {
@@ -164,10 +162,10 @@ export default {
   },
   methods: {
     i18nRender,
-    jumpUrl (path) {
+    jumpUrl(path) {
       this.$router.push(path)
     },
-    handleMediaQuery (val) {
+    handleMediaQuery(val) {
       this.query = val
       if (this.isMobile && !val['screen-xs']) {
         this.isMobile = false
@@ -180,10 +178,10 @@ export default {
         // this.settings.fixSiderbar = false
       }
     },
-    handleCollapse (val) {
+    handleCollapse(val) {
       this.collapsed = val
     },
-    handleSettingChange ({ type, value }) {
+    handleSettingChange({ type, value }) {
       console.log('type', type, value)
       type && (this.settings[type] = value)
       switch (type) {
@@ -199,11 +197,11 @@ export default {
           }
           break
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="less">
-@import "./BasicLayout.less";
+@import './BasicLayout.less';
 </style>

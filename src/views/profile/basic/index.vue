@@ -1,5 +1,7 @@
 <template>
-  <div id="root-subapp-react" class="app-view-box" />
+  <div>
+    <div id="root-subapp-react" class="app-view-box" />
+  </div>
 </template>
 
 <script>
@@ -8,8 +10,6 @@
   export default {
     name: 'Basic',
     mounted () {
-      console.log(this.$route)
-      console.log(process.env.VUE_APP_SUB_APP_REACT)
       registerMicroApps([
         {
           name: 'react15',
